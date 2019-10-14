@@ -5,7 +5,6 @@ dosseg
 .data
 s1 db '0123456789$'
 s2 db 'Number$'
-s3 db 'Not Number$'
 .code
 main proc
 mov ax,@data
@@ -13,9 +12,9 @@ mov ds,ax
 mov cl,0
 mov ah,1
 int 21h
-mov si, offset s1
 mov dl,'$'
-
+a:
+mov si, offset s1
 r:      ;repeat searching 
 cmp dl,[si]
 je c
@@ -41,11 +40,9 @@ mov ah,4ch
 int 21h
 
 z:     ;If the character is not in num array at the end of searching than it is not a number
-dec cl
-mov dx, offset s3
-mov ah,9
+mov ah,1
 int 21h
-jmp c
+jmp a
 
 main endp
 end main
